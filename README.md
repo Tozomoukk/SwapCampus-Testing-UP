@@ -49,7 +49,7 @@ You can also click the green arrow next to a test in Android Studio to run it al
 
 | I want to… | Unit (kotlin.test) | Compose test | UI Automator |
 |---|---|---|---|
-| Find | – | `composeRule.onNodeWithText("Sell")`, `onNodeWithTag("login_button")` | `device.findObject(By.text("Allow"))` |
+| Find | – | `composeRule.onNodeWithText("Sell", useUnmergedTree = true)`, `onNodeWithTag("login_button")` | `device.findObject(By.text("Allow"))` |
 | Act | call the function | `.performClick()`, `.performTextInput("25")`, `.performScrollTo()` | `device.pressBack()`, `device.setOrientationLeft()` |
 | Check | `assertEquals`, `assertTrue`, `assertFalse`, `assertNotNull` | `.assertIsDisplayed()`, `.assertDoesNotExist()` | – (check with the Compose rule) |
 

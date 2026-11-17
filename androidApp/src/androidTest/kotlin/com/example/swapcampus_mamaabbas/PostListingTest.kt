@@ -28,7 +28,7 @@ class PostListingTest {
 
     @Test
     fun postListing_whileLoggedOut_asksLoginThenPublishes() {
-        composeRule.onNodeWithText("Sell").performClick()
+        composeRule.onNodeWithText("Sell", useUnmergedTree = true).performClick() // the FAB text is only in the unmerged tree
         composeRule.onNodeWithText("Email").performTextInput("alice@isep.fr")
         composeRule.onNodeWithText("Password").performTextInput("1234")
         composeRule.onNodeWithTag("login_button").performClick()
@@ -42,7 +42,8 @@ class PostListingTest {
 
     // TODO Exercise 3 · Compose test
     // Publishing a listing without a title shows the error "Give your listing a title."
-    //   1. Tap "Sell" (you are logged out, so the login form appears)
+    //   1. Tap "Sell": onNodeWithText("Sell", useUnmergedTree = true), its text is only in the unmerged tree.
+    //      You are logged out, so the login form appears
     //   2. Log in with the helper fillLoginForm() (UiTestHelpers.kt)
     //   3. Type a price in the "Price" field, leave the title empty
     //   4. Tap "Publish" (use performScrollTo() before performClick(): it may be below the screen)

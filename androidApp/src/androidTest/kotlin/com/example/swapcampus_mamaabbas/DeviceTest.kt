@@ -39,7 +39,7 @@ class DeviceTest {
     @Test
     fun postForm_survivesRotation_andSystemBackClosesIt() {
         composeRule.logInAsAlice()
-        composeRule.onNodeWithText("Sell").performClick()
+        composeRule.onNodeWithText("Sell", useUnmergedTree = true).performClick()
         composeRule.onNodeWithText("Title").performTextInput("Desk lamp")
 
         device.setOrientationLeft() // rotate the real device: the activity is recreated
@@ -49,13 +49,14 @@ class DeviceTest {
         device.setOrientationNatural()
         Espresso.closeSoftKeyboard() // otherwise the first Back only hides the keyboard
         device.pressBack() // system Back, outside our UI
-        composeRule.onNodeWithText("Sell").assertIsDisplayed()
+        composeRule.onNodeWithText("Sell", useUnmergedTree = true).assertIsDisplayed()
     }
 
     // TODO Exercise 4 · UI Automator
     // On a listing's detail screen, the system Back button (outside our UI) returns to the list.
     //   1. Open the detail of the listing "Calculatrice TI-83" (Compose rule, performClick)
-    //   2. Check that you left the list: the "Sell" button no longer exists (assertDoesNotExist)
+    //   2. Check that you left the list: the "Sell" button no longer exists (assertDoesNotExist,
+    //      find it with useUnmergedTree = true like in the test above)
     //   3. Press the system Back button with UI Automator (device)
     //   4. Check that the "Sell" button is displayed again
     // Check on an emulator in English: ./gradlew :androidApp:connectedAndroidTest
